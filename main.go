@@ -69,7 +69,15 @@ func getPokemon(c *gin.Context) {
 		}
 	}
 
-	c.IndentedJSON(http.StatusOK, pokemon)
+	pokemonData := structs.FlattenedPokemon{
+		ID:       pokemon.ID,
+		Name:     pokemon.Name,
+		Abilities: flattenAbilities(pokemon.Abilities),
+		Stats:     flattenStats(pokemon.Stats),
+		Sprites:   pokemon.Sprites,
+	}
+
+	c.IndentedJSON(http.StatusOK, pokemonData)
 }
 
 func getAbilityEffect(abilityName string) (string, error) {
@@ -103,3 +111,24 @@ func getAbilityEffect(abilityName string) (string, error) {
     return "", fmt.Errorf("no english effect found for ability: %s", abilityName)
 }
 
+func flattenAbilities(abilities []structs.Ability) []structs.FlattenedAbility {
+	var flattenedAbilities []structs.FlattenedAbility
+	for _, ability := range abilities {
+		flattenedAbilities = append(flattenedAbilities, structs.FlattenedAbility{
+			Name:   ability.Ability.Name,
+			Effect: ability.Ability.Effect,
+		})
+	}
+	return flattenedAbilities
+}
+
+func flattenStats(stats []structs.Stat) []structs.FlattenedStat {
+	var flattenedStats []structs.FlattenedStat
+	for _, stat := range stats {
+		flattenedStats = append(flattenedStats, structs.FlattenedStat{
+			Name:  stat.Stat.Name,
+			Value: stat.Value,
+		})
+	}
+	return flattenedStats
+}

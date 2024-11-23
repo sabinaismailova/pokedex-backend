@@ -28,8 +28,10 @@ type EffectEntry struct {
 }
 
 type Stat struct {
-	Name string `json:"name"`
-	Stat int `json:"stat"`
+	Value int `json:"base_stat"`
+	Stat struct {
+		Name string `json:"name"`
+	} `json:"stat"`
 }
 
 type Pokemon struct {
@@ -37,4 +39,23 @@ type Pokemon struct {
     Name  string  `json:"name"`
     Sprites Sprites  `json:"sprites"`
 	Abilities []Ability `json:"abilities"`
+	Stats []Stat `json:"stats"`
+}
+
+type FlattenedStat struct {
+	Name  string `json:"name"`
+	Value int    `json:"value"`
+}
+
+type FlattenedAbility struct {
+	Name   string `json:"name"`
+	Effect string `json:"effect"`
+}
+
+type FlattenedPokemon struct {
+	ID         int               `json:"id"`
+	Name       string            `json:"name"`
+	Abilities  []FlattenedAbility `json:"abilities"`
+	Stats      []FlattenedStat   `json:"stats"`
+	Sprites    Sprites  `json:"sprites"`
 }
