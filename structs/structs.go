@@ -20,7 +20,7 @@ type Ability struct {
 
 type EffectEntry struct {
 	EffectEntries []struct {
-        Effect  string `json:"effect"`
+        Effect  string `json:"short_effect"`
         Language struct {
             Name string `json:"name"`
         } `json:"language"`
