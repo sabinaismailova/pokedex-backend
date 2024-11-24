@@ -74,6 +74,8 @@ func getPokemon(c *gin.Context) {
 		Name:     pokemon.Name,
 		Abilities: flattenAbilities(pokemon.Abilities),
 		Stats:     flattenStats(pokemon.Stats),
+		Cry:       pokemon.Cry.Audio,
+		Types:     flattenTypes(pokemon.Types),
 		Sprites:   pokemon.Sprites,
 	}
 
@@ -131,4 +133,12 @@ func flattenStats(stats []structs.Stat) []structs.FlattenedStat {
 		})
 	}
 	return flattenedStats
+}
+
+func flattenTypes(types []structs.Type) []string {
+	var flattenedTypes []string
+	for _, t := range types {
+		flattenedTypes = append(flattenedTypes, t.Type.Name)
+	}
+	return flattenedTypes
 }

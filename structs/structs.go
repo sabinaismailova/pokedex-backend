@@ -34,12 +34,24 @@ type Stat struct {
 	} `json:"stat"`
 }
 
+type Cry struct {
+	Audio string `json:"latest"`
+}
+
+type Type struct {
+	Type struct {
+		Name string `json:"name"`
+	} `json:"type"`
+}
+
 type Pokemon struct {
     ID     int  `json:"id"`
     Name  string  `json:"name"`
     Sprites Sprites  `json:"sprites"`
 	Abilities []Ability `json:"abilities"`
 	Stats []Stat `json:"stats"`
+	Cry Cry `json:"cries"`
+	Types []Type `json:"types"` 
 }
 
 type FlattenedStat struct {
@@ -57,5 +69,7 @@ type FlattenedPokemon struct {
 	Name       string            `json:"name"`
 	Abilities  []FlattenedAbility `json:"abilities"`
 	Stats      []FlattenedStat   `json:"stats"`
-	Sprites    Sprites  `json:"sprites"`
+	Cry        string            `json:"cry"`
+	Types      []string          `json:"types"`
+	Sprites    Sprites           `json:"sprites"`
 }
