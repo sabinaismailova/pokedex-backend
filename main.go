@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
@@ -15,15 +16,24 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	if os.Getenv("VERCEL") != "" {
+		http.HandleFunc("/", Handler)
+	} else {
 		router := gin.Default()
-
 		router.Use(cors.Default())
-
 		router.GET("/pokemon/:name", getPokemon)
-		
-		router.ServeHTTP(w, r)
-	})
+		router.Run(":8080")
+	}
+}
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+	router := gin.Default()
+
+	router.Use(cors.Default())
+
+	router.GET("/pokemon/:name", getPokemon)
+
+	router.ServeHTTP(w, r)
 }
 
 func getPokemon(c *gin.Context) {
@@ -66,4 +76,3 @@ func getPokemon(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, pokemonData)
 }
-
