@@ -10,8 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
 
-	"example/pokemon/structs"
-	"example/pokemon/manipulations"
+	"pokedex/pokemon/structs"
+	"pokedex/pokemon/manipulations"
 )
 
 func main() {

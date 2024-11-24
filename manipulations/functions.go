@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"example/pokemon/structs"
+	"pokedex/pokemon/structs"
 )
 
 func getAbilityEffect(abilityName string) (string, error) {

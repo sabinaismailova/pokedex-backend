@@ -1,4 +1,4 @@
-module example/pokemon
+module pokedex/pokemon
 
 go 1.23.3
 
