@@ -15,15 +15,15 @@ import (
 )
 
 func main() {
-    router := gin.Default()
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		router := gin.Default()
 
-	router.Use(cors.Default())
+		router.Use(cors.Default())
 
-    router.GET("/pokemon/:name", getPokemon)
-
-	// router.GET("/stats/:name", getStats)
-
-    router.Run("localhost:8080")
+		router.GET("/pokemon/:name", getPokemon)
+		
+		router.ServeHTTP(w, r)
+	})
 }
 
 func getPokemon(c *gin.Context) {
@@ -66,3 +66,4 @@ func getPokemon(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, pokemonData)
 }
+
