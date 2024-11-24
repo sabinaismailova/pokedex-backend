@@ -17,7 +17,12 @@ import (
 func Handler(w http.ResponseWriter, r *http.Request) {
 	router := gin.Default()
 
-	router.Use(cors.Default())
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"https://pokedex-nu-jet-26.vercel.app", "http://localhost:3000"},
+		AllowMethods: []string{"GET", "POST", "PUT", "DELETE"},
+		AllowHeaders: []string{"Origin", "Content-Type", "Authorization"},
+		AllowCredentials: true,
+	}))
 
 	router.GET("/pokemon/:name", getPokemon)
 
