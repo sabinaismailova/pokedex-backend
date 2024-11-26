@@ -35,7 +35,7 @@ type Stat struct {
 }
 
 type Cry struct {
-	Audio string `json:"legacy"`
+	Audio string `json:"latest"`
 }
 
 type Type struct {
